@@ -6,6 +6,7 @@ import (
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/yenkuanlee/go-elements/network"
 	"github.com/yenkuanlee/go-elements/payment"
+	"github.com/yenkuanlee/go-elements/pset"
 )
 
 func randomKey() (string, error) {
@@ -27,5 +28,5 @@ func main() {
 	segwitAddress, _ := pay.WitnessPubKeyHash()
 	println(legacyAddress)
 	println(segwitAddress)
-
+	pset.New(nil, nil, 2, 0)
 }

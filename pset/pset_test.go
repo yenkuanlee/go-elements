@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -25,7 +26,7 @@ import (
 
 var lbtc = append(
 	[]byte{0x01},
-	elementsutil.ReverseBytes(h2b(network.Regtest.AssetID))...,
+	elementsutil.ReverseBytes(h2b(network.Testnet.AssetID))...,
 )
 
 func TestRoundTrip(t *testing.T) {
@@ -100,7 +101,7 @@ func TestBroadcastBlindedSwapTx(t *testing.T) {
 	}
 	pubkeyAlice := privkeyAlice.PubKey()
 	blindPubkeyAlice := blindPrivkeyAlice.PubKey()
-	p2wpkhAlice := payment.FromPublicKey(pubkeyAlice, &network.Regtest, blindPubkeyAlice)
+	p2wpkhAlice := payment.FromPublicKey(pubkeyAlice, &network.Testnet, blindPubkeyAlice)
 	addressAlice, _ := p2wpkhAlice.ConfidentialWitnessPubKeyHash()
 
 	// Generating Bobs Keys and Address
@@ -114,7 +115,7 @@ func TestBroadcastBlindedSwapTx(t *testing.T) {
 	}
 	pubkeyBob := privkeyBob.PubKey()
 	blindPubkeyBob := blindPrivkeyBob.PubKey()
-	p2wpkhBob := payment.FromPublicKey(pubkeyBob, &network.Regtest, blindPubkeyBob)
+	p2wpkhBob := payment.FromPublicKey(pubkeyBob, &network.Testnet, blindPubkeyBob)
 	addressBob, _ := p2wpkhBob.ConfidentialWitnessPubKeyHash()
 
 	// Fund Alice address with LBTC.
@@ -276,7 +277,7 @@ func TestBroadcastUnblindedTxP2PKH(t *testing.T) {
 		t.Fatal(err)
 	}
 	pubkey := privkey.PubKey()
-	p2pkh := payment.FromPublicKey(pubkey, &network.Regtest, nil)
+	p2pkh := payment.FromPublicKey(pubkey, &network.Testnet, nil)
 	address, _ := p2pkh.PubKeyHash()
 
 	// Fund sender address.
@@ -355,7 +356,7 @@ func TestBroadcastUnblindedTxP2SH_P2WPKH(t *testing.T) {
 		t.Fatal(err)
 	}
 	pubkey := privkey.PubKey()
-	p2wpkh := payment.FromPublicKey(pubkey, &network.Regtest, nil)
+	p2wpkh := payment.FromPublicKey(pubkey, &network.Testnet, nil)
 	p2sh, _ := payment.FromPayment(p2wpkh)
 	address, _ := p2sh.ScriptHash()
 
@@ -435,7 +436,7 @@ func TestBroadcastUnblindedTxP2WPKH(t *testing.T) {
 		t.Fatal(err)
 	}
 	pubkey := privkey.PubKey()
-	p2wpkh := payment.FromPublicKey(pubkey, &network.Regtest, nil)
+	p2wpkh := payment.FromPublicKey(pubkey, &network.Testnet, nil)
 	address, _ := p2wpkh.WitnessPubKeyHash()
 
 	// Fund sender address.
@@ -520,7 +521,7 @@ func TestBroadcastUnblindedTxP2SH_P2MS(t *testing.T) {
 	bobPubkey := bob.PubKey()
 	pubkeys := []*btcec.PublicKey{alicePubkey, bobPubkey}
 
-	p2sh, _ := payment.FromPublicKeys(pubkeys, 2, &network.Regtest, nil)
+	p2sh, _ := payment.FromPublicKeys(pubkeys, 2, &network.Testnet, nil)
 	address, _ := p2sh.ScriptHash()
 
 	// Fund sender address.
@@ -614,7 +615,7 @@ func TestBroadcastUnblindedTxP2WSH_P2MS(t *testing.T) {
 	bobPubkey := bob.PubKey()
 	pubkeys := []*btcec.PublicKey{alicePubkey, bobPubkey}
 
-	p2wsh, _ := payment.FromPublicKeys(pubkeys, 2, &network.Regtest, nil)
+	p2wsh, _ := payment.FromPublicKeys(pubkeys, 2, &network.Testnet, nil)
 	address, _ := p2wsh.WitnessScriptHash()
 
 	// Fund sender address.
@@ -696,7 +697,7 @@ func TestBroadcastUnblindedIssuanceTx(t *testing.T) {
 		t.Fatal(err)
 	}
 	pubkey := privkey.PubKey()
-	p2wpkh := payment.FromPublicKey(pubkey, &network.Regtest, nil)
+	p2wpkh := payment.FromPublicKey(pubkey, &network.Testnet, nil)
 	address, _ := p2wpkh.WitnessPubKeyHash()
 
 	// Fund sender address.
@@ -768,103 +769,19 @@ func TestBroadcastUnblindedIssuanceTx(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if _, err := broadcastTransaction(p); err != nil {
+	// if _, err := broadcastTransaction(p); err != nil {
+	// 	t.Fatal(err)
+	// }
+
+	signedTx, err := broadcastTransaction(p)
+	if err != nil {
 		t.Fatal(err)
 	}
+	log.Println(signedTx)
 }
 
 func TestBroadcastBlindedTx(t *testing.T) {
-	/**
-	* This test attempts to broadcast a confidential transaction composed by 1
-	* P2WPKH unbinded input and 2 blinded outputs. The outputs will be a
-	* confidential p2sh for the receiver and a confidential p2wpkh for the
-	* change. A 3rd unblinded output is for the fees with empty script.
-	**/
-
-	privkey, err := btcec.NewPrivateKey(btcec.S256())
-	if err != nil {
-		t.Fatal(err)
-	}
-	pubkey := privkey.PubKey()
-	p2wpkh := payment.FromPublicKey(pubkey, &network.Regtest, nil)
-	address, _ := p2wpkh.WitnessPubKeyHash()
-
-	// Fund sender address.
-	if _, err := faucet(address); err != nil {
-		t.Fatal(err)
-	}
-
-	// Retrieve sender utxos.
-	utxos, err := unspents(address)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	// The transaction will have 1 input and 3 outputs.
-	txInputHash := elementsutil.ReverseBytes(h2b(utxos[0]["txid"].(string)))
-	txInputIndex := uint32(utxos[0]["vout"].(float64))
-	txInput := transaction.NewTxInput(txInputHash, txInputIndex)
-
-	receiverValue, _ := elementsutil.SatoshiToElementsValue(60000000)
-	receiverScript := h2b("76a91439397080b51ef22c59bd7469afacffbeec0da12e88ac")
-	receiverOutput := transaction.NewTxOutput(lbtc, receiverValue, receiverScript)
-
-	changeScript := p2wpkh.WitnessScript
-	changeValue, _ := elementsutil.SatoshiToElementsValue(39999500)
-	changeOutput := transaction.NewTxOutput(lbtc, changeValue, changeScript)
-
-	// Create a new pset with all the outputs that need to be blinded first
-	inputs := []*transaction.TxInput{txInput}
-	outputs := []*transaction.TxOutput{receiverOutput, changeOutput}
-	p, err := New(inputs, outputs, 2, 0)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	// Add sighash type and witness utxo to the partial input.
-	updater, err := NewUpdater(p)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	witValue, _ := elementsutil.SatoshiToElementsValue(uint64(utxos[0]["value"].(float64)))
-	witnessUtxo := transaction.NewTxOutput(lbtc, witValue, p2wpkh.WitnessScript)
-	if err := updater.AddInWitnessUtxo(witnessUtxo, 0); err != nil {
-		t.Fatal(err)
-	}
-
-	//blind outputs
-	inBlindingPrvKeys := [][]byte{{}}
-	outBlindingPrvKeys := make([][]byte, 2)
-	for i := range outBlindingPrvKeys {
-		pk, err := btcec.NewPrivateKey(btcec.S256())
-		if err != nil {
-			t.Fatal(err)
-		}
-		outBlindingPrvKeys[i] = pk.Serialize()
-	}
-
-	if err := blindTransaction(
-		p,
-		inBlindingPrvKeys,
-		outBlindingPrvKeys,
-		nil,
-	); err != nil {
-		t.Fatal(err)
-	}
-
-	// Add the unblinded outputs now, that's only the fee output in this case
-	addFeesToTransaction(p, 500)
-
-	prvKeys := []*btcec.PrivateKey{privkey}
-	scripts := [][]byte{p2wpkh.Script}
-	if err := signTransaction(p, prvKeys, scripts, true, nil); err != nil {
-		t.Fatal(err)
-	}
-
-	if _, err := broadcastTransaction(p); err != nil {
-		t.Fatal(err)
-	}
+	Kevin()
 }
 
 func TestBroadcastBlindedTxWithBlindedInput(t *testing.T) {
@@ -885,7 +802,7 @@ func TestBroadcastBlindedTxWithBlindedInput(t *testing.T) {
 		t.Fatal(err)
 	}
 	blindingPublicKey := blindingPrivateKey.PubKey()
-	p2wpkh := payment.FromPublicKey(pubkey, &network.Regtest, blindingPublicKey)
+	p2wpkh := payment.FromPublicKey(pubkey, &network.Testnet, blindingPublicKey)
 	confidentialAddress, _ := p2wpkh.ConfidentialWitnessPubKeyHash()
 
 	// Fund sender address.
@@ -996,7 +913,7 @@ func TestBroadcastBlindedTxWithBlindedAndUnblindedOutputs(t *testing.T) {
 		t.Fatal(err)
 	}
 	blindingPublicKey := blindingPrivateKey.PubKey()
-	p2wpkh := payment.FromPublicKey(pubkey, &network.Regtest, blindingPublicKey)
+	p2wpkh := payment.FromPublicKey(pubkey, &network.Testnet, blindingPublicKey)
 	confidentialAddress, _ := p2wpkh.ConfidentialWitnessPubKeyHash()
 
 	// Fund sender address.
@@ -1102,7 +1019,7 @@ func TestBroadcastIssuanceTxWithBlindedOutput(t *testing.T) {
 		t.Fatal(err)
 	}
 	pubkey := privkey.PubKey()
-	p2wpkh := payment.FromPublicKey(pubkey, &network.Regtest, nil)
+	p2wpkh := payment.FromPublicKey(pubkey, &network.Testnet, nil)
 	address, _ := p2wpkh.WitnessPubKeyHash()
 
 	// Fund sender address.
@@ -1225,7 +1142,7 @@ func TestBroadcastBlindedIssuanceAndReIssuanceTx(t *testing.T) {
 	}
 	blindPubkey := blindPrivkey.PubKey()
 
-	p2wpkh := payment.FromPublicKey(pubkey, &network.Regtest, blindPubkey)
+	p2wpkh := payment.FromPublicKey(pubkey, &network.Testnet, blindPubkey)
 	address, _ := p2wpkh.ConfidentialWitnessPubKeyHash()
 
 	// Fund sender address.
@@ -1623,8 +1540,9 @@ func broadcastTransaction(p *Pset) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	log.Printf(txHex)
 
-	return broadcast(txHex)
+	return txHex, nil
 }
 
 func faucet(address string) (string, error) {
@@ -1694,16 +1612,23 @@ func mint(address string, quantity int, name string, ticker string) (string, str
 
 func unspents(address string) ([]map[string]interface{}, error) {
 	getUtxos := func(address string) ([]interface{}, error) {
-		baseUrl, err := apiBaseUrl()
+		url := fmt.Sprintf("https://blockstream.info/liquidtestnet/api/address/%s/utxo", address)
+		log.Println(url)
+		method := "GET"
+
+		client := &http.Client{}
+		req, err := http.NewRequest(method, url, nil)
+
 		if err != nil {
 			return nil, err
 		}
-		url := fmt.Sprintf("%s/address/%s/utxo", baseUrl, address)
-		resp, err := http.Get(url)
+		res, err := client.Do(req)
 		if err != nil {
 			return nil, err
 		}
-		data, err := ioutil.ReadAll(resp.Body)
+		defer res.Body.Close()
+
+		data, err := ioutil.ReadAll(res.Body)
 		if err != nil {
 			return nil, err
 		}

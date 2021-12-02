@@ -5,10 +5,10 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/vulpemventures/go-elements/block"
-	"github.com/vulpemventures/go-elements/elementsutil"
-	"github.com/vulpemventures/go-elements/network"
-	"github.com/vulpemventures/go-elements/transaction"
+	"github.com/yenkuanlee/go-elements/block"
+	"github.com/yenkuanlee/go-elements/elementsutil"
+	"github.com/yenkuanlee/go-elements/network"
+	"github.com/yenkuanlee/go-elements/transaction"
 
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcd/wire"

@@ -27,8 +27,8 @@ import (
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/btcsuite/btcd/wire"
 	"github.com/btcsuite/btcutil/psbt"
-	"github.com/vulpemventures/go-elements/internal/bufferutil"
-	"github.com/vulpemventures/go-elements/transaction"
+	"github.com/yenkuanlee/go-elements/internal/bufferutil"
+	"github.com/yenkuanlee/go-elements/transaction"
 )
 
 // writeTxWitness is a A utility function due to non-exported witness

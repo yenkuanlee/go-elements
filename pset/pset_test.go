@@ -17,11 +17,11 @@ import (
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/stretchr/testify/assert"
-	"github.com/vulpemventures/go-elements/confidential"
-	"github.com/vulpemventures/go-elements/elementsutil"
-	"github.com/vulpemventures/go-elements/network"
-	"github.com/vulpemventures/go-elements/payment"
-	"github.com/vulpemventures/go-elements/transaction"
+	"github.com/yenkuanlee/go-elements/confidential"
+	"github.com/yenkuanlee/go-elements/elementsutil"
+	"github.com/yenkuanlee/go-elements/network"
+	"github.com/yenkuanlee/go-elements/payment"
+	"github.com/yenkuanlee/go-elements/transaction"
 )
 
 var lbtc = append(

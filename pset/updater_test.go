@@ -8,8 +8,8 @@ import (
 
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/stretchr/testify/assert"
-	"github.com/vulpemventures/go-elements/elementsutil"
-	"github.com/vulpemventures/go-elements/transaction"
+	"github.com/yenkuanlee/go-elements/elementsutil"
+	"github.com/yenkuanlee/go-elements/transaction"
 )
 
 func TestUpdater(t *testing.T) {

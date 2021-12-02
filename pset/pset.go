@@ -28,9 +28,9 @@ import (
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/btcsuite/btcd/wire"
 	"github.com/btcsuite/btcutil/psbt"
-	"github.com/vulpemventures/go-elements/address"
-	"github.com/vulpemventures/go-elements/payment"
-	"github.com/vulpemventures/go-elements/transaction"
+	"github.com/yenkuanlee/go-elements/address"
+	"github.com/yenkuanlee/go-elements/payment"
+	"github.com/yenkuanlee/go-elements/transaction"
 )
 
 // psbtMagicLength is the length of the magic bytes used to signal the start of

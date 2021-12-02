@@ -6,20 +6,20 @@ import (
 	"errors"
 
 	"github.com/btcsuite/btcd/wire"
-	"github.com/vulpemventures/go-elements/block"
-	"github.com/vulpemventures/go-elements/elementsutil"
-	"github.com/vulpemventures/go-elements/transaction"
+	"github.com/yenkuanlee/go-elements/block"
+	"github.com/yenkuanlee/go-elements/elementsutil"
+	"github.com/yenkuanlee/go-elements/transaction"
 
 	"github.com/btcsuite/btcutil"
 
 	"github.com/btcsuite/btcd/txscript"
 
-	"github.com/vulpemventures/go-elements/network"
-	"github.com/vulpemventures/go-elements/payment"
+	"github.com/yenkuanlee/go-elements/network"
+	"github.com/yenkuanlee/go-elements/payment"
 
 	"github.com/btcsuite/btcd/chaincfg"
 
-	"github.com/vulpemventures/go-elements/address"
+	"github.com/yenkuanlee/go-elements/address"
 
 	"github.com/btcsuite/btcd/btcec"
 )

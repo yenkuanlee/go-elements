@@ -9,8 +9,8 @@ import (
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/btcsuite/btcutil/base58"
 	"github.com/btcsuite/btcutil/bech32"
-	"github.com/vulpemventures/go-elements/blech32"
-	"github.com/vulpemventures/go-elements/network"
+	"github.com/yenkuanlee/go-elements/blech32"
+	"github.com/yenkuanlee/go-elements/network"
 	"golang.org/x/crypto/ripemd160"
 )
 

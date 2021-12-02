@@ -6,8 +6,8 @@ import (
 
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/stretchr/testify/assert"
-	"github.com/vulpemventures/go-elements/network"
-	"github.com/vulpemventures/go-elements/payment"
+	"github.com/yenkuanlee/go-elements/network"
+	"github.com/yenkuanlee/go-elements/payment"
 )
 
 const (

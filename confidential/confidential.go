@@ -4,8 +4,8 @@ import (
 	"crypto/sha256"
 	"errors"
 
-	"github.com/vulpemventures/go-elements/transaction"
 	"github.com/vulpemventures/go-secp256k1-zkp"
+	"github.com/yenkuanlee/go-elements/transaction"
 )
 
 // NonceHash method generates hashed secret based on ecdh.

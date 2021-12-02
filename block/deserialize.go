@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/vulpemventures/go-elements/internal/bufferutil"
+	"github.com/yenkuanlee/go-elements/internal/bufferutil"
 
-	"github.com/vulpemventures/go-elements/transaction"
+	"github.com/yenkuanlee/go-elements/transaction"
 )
 
 func deserialize(buf *bytes.Buffer) (*Block, error) {

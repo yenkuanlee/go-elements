@@ -8,8 +8,8 @@ import (
 
 	"github.com/btcsuite/btcd/txscript"
 
-	"github.com/vulpemventures/go-elements/address"
 	"github.com/vulpemventures/go-secp256k1-zkp"
+	"github.com/yenkuanlee/go-elements/address"
 )
 
 const (

@@ -19,9 +19,9 @@ import (
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/btcsuite/btcutil"
 	"github.com/btcsuite/btcutil/psbt"
-	"github.com/vulpemventures/go-elements/address"
-	"github.com/vulpemventures/go-elements/elementsutil"
-	"github.com/vulpemventures/go-elements/transaction"
+	"github.com/yenkuanlee/go-elements/address"
+	"github.com/yenkuanlee/go-elements/elementsutil"
+	"github.com/yenkuanlee/go-elements/transaction"
 )
 
 const (

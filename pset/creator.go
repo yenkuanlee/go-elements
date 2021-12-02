@@ -6,7 +6,7 @@ package pset
 
 import (
 	"github.com/btcsuite/btcutil/psbt"
-	"github.com/vulpemventures/go-elements/transaction"
+	"github.com/yenkuanlee/go-elements/transaction"
 )
 
 // New on provision of an input and output 'skeleton' for the transaction, a

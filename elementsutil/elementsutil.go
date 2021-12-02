@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"errors"
 
-	"github.com/vulpemventures/go-elements/internal/bufferutil"
+	"github.com/yenkuanlee/go-elements/internal/bufferutil"
 )
 
 // SatoshiToElementsValue method converts Satoshi value to Elements value

@@ -5,21 +5,21 @@
 # go-elements
 
 [![Build Status](https://travis-ci.com/vulpemventures/go-elements.svg?branch=master)](https://travis-ci.com/vulpemventures/go-elements)
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/vulpemventures/go-elements)](https://pkg.go.dev/github.com/vulpemventures/go-elements)
-[![Release](https://img.shields.io/github/release/vulpemventures/go-elements.svg?style=flat-square)](https://github.com/vulpemventures/go-elements/releases/latest)
-[![Go Report Card](https://goreportcard.com/badge/github.com/vulpemventures/go-elements)](https://goreportcard.com/report/github.com/vulpemventures/go-elements)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/yenkuanlee/go-elements)](https://pkg.go.dev/github.com/yenkuanlee/go-elements)
+[![Release](https://img.shields.io/github/release/vulpemventures/go-elements.svg?style=flat-square)](https://github.com/yenkuanlee/go-elements/releases/latest)
+[![Go Report Card](https://goreportcard.com/badge/github.com/yenkuanlee/go-elements)](https://goreportcard.com/report/github.com/yenkuanlee/go-elements)
 [![Bitcoin Donate](https://badgen.net/badge/Bitcoin/Donate/F7931A?icon=bitcoin)](https://blockstream.info/address/3MdERN32qiMnQ68bSSee5CXQkrSGx1iStr)
 
 
 Go support for confidential transactions on Elements-based blockchains
 
-**The package is currently being developed.** For stable versions, you must refer to the [latest release](https://github.com/vulpemventures/go-elements/releases)
+**The package is currently being developed.** For stable versions, you must refer to the [latest release](https://github.com/yenkuanlee/go-elements/releases)
 
 ## Install
 
 ```sh
 # Install latest tagged release
-$ go get github.com/vulpemventures/go-elements@latest
+$ go get github.com/yenkuanlee/go-elements@latest
 ```
 
 ## 👀 Examples
@@ -42,8 +42,8 @@ $ go get github.com/vulpemventures/go-elements@latest
   - [x] Fix order of witness in transaction serialization
   - [x] Add confidential fields
   - [x] Serialization for (witness) signature
-- [x] [PSET / Bip174 for Elements](https://github.com/vulpemventures/go-elements/tree/master/pset)
-- [x] [Blech32](https://github.com/vulpemventures/go-elements/tree/master/blech32)
+- [x] [PSET / Bip174 for Elements](https://github.com/yenkuanlee/go-elements/tree/master/pset)
+- [x] [Blech32](https://github.com/yenkuanlee/go-elements/tree/master/blech32)
 - [x] [CGO bindings for secp256k1-zkp](https://github.com/vulpemventures/go-secp256k1-zkp)
 - [x] Unblinding ins / Blinding outs / Blinding issuance ins
 - [x] Signing a confidential input (use 0 value amounts to produce the hash for the signature)
@@ -57,7 +57,7 @@ $ go get github.com/vulpemventures/go-elements@latest
 * Clone repository:
 
 ```sh
-$ git clone https://github.com/vulpemventures/go-elements.git
+$ git clone https://github.com/yenkuanlee/go-elements.git
 ```
 
 * Enter into the project folder and install dependencies:
@@ -83,7 +83,7 @@ $ make test
 $ godoc -http ":8080"
 ```
 
-> http://localhost:8080/pkg/github.com/vulpemventures/go-elements/
+> http://localhost:8080/pkg/github.com/yenkuanlee/go-elements/
 
 ## 👷‍♂️ Contributors
 
@@ -92,4 +92,4 @@ $ godoc -http ":8080"
 - [@sekulicd](https://github.com/sekulicd)
 - [@francismars](https://github.com/francismars)
 
-## License [MIT](https://github.com/vulpemventures/go-elements/blob/master/LICENSE)
+## License [MIT](https://github.com/yenkuanlee/go-elements/blob/master/LICENSE)

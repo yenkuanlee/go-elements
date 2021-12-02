@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/vulpemventures/go-elements/elementsutil"
+	"github.com/yenkuanlee/go-elements/elementsutil"
 )
 
 func TestDeserializeMerkleBlock(t *testing.T) {

@@ -2,7 +2,7 @@ package block
 
 import (
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
-	"github.com/vulpemventures/go-elements/internal/bufferutil"
+	"github.com/yenkuanlee/go-elements/internal/bufferutil"
 )
 
 func (b *Block) SerializeBlock() ([]byte, error) {

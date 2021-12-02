@@ -1,4 +1,4 @@
-module github.com/vulpemventures/go-elements
+module github.com/yenkuanlee/go-elements
 
 go 1.14
 

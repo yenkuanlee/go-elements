@@ -6,7 +6,7 @@ import (
 
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/txscript"
-	"github.com/vulpemventures/go-elements/internal/bufferutil"
+	"github.com/yenkuanlee/go-elements/internal/bufferutil"
 )
 
 const (

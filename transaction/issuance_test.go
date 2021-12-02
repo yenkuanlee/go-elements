@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/vulpemventures/go-elements/elementsutil"
+	"github.com/yenkuanlee/go-elements/elementsutil"
 )
 
 func TestIssuanceGeneration(t *testing.T) {
